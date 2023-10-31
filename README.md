@@ -19,9 +19,10 @@ Pagine implementate:
 - Pagina per accesso o iscrizione
 - Pagina con calendario per visionare gli spettacoli di ogni settimana
 
-credenziali
-==USER== username:user password:user
-==ADMIN== username:admin password:admin
+### credenziali
+
+USER username:user password:user
+ADMIN username:admin password:admin
 
 gestione utenti:(JWT da implementare)
 guest: può solo visualizzare i titoli e le date
