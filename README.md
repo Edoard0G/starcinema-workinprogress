@@ -28,5 +28,7 @@ ADMIN username:admin password:admin
 ## gestione utenti:(JWT da implementare)
 
 guest: può solo visualizzare i titoli e le date
+
 user: può creare una prenotazione selezionando i posti, eliminare la prenotazione, commentare film
+
 admin: può creare nuovi spettacoli selezionando il titolo
