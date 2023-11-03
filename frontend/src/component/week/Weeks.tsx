@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { startOfToday, format, getISODay, subDays, addDays } from 'date-fns';
 import WeekCard from './WeekCard';
 import './week.css';
-import { DBCALL_URL } from '../../root';
+import { DBCALL_URL } from '../../asset/DBcall/root';
 import AddShow from './AddShow';
-import { ShowType } from '../../types/types';
-import { Role, ShowDBcall } from '../../const';
-import { FetchDataPost } from '../../fetchDB';
+import { ShowType } from '../../asset/types/types';
+import { Role } from '../../asset/const/const';
+import { ShowDBcall } from '../../asset/DBcall/DBcall';
+import { FetchDataPost } from '../../asset/DBcall/fetchDB';
 import WeekTable from './WeekTable';
 import { useAppSelector } from '../../store/hook';
 
@@ -16,8 +17,6 @@ function Weeks() {
     const today = format(startOfToday(), 'yyyy-MM-dd');
     const [day, setDay] = useState(today);
     const user = useAppSelector((state) => state.user);
-    const [startWeek, setStartWeek] = useState<Date>();
-    const [endWeek, setEndWeek] = useState<Date>();
     const [isloading, setIsloading] = useState(true);
     const [showlist, setShowList] = useState<ShowType[]>([]);
     const [week, setWeek] = useState<string[]>([]);
@@ -30,8 +29,6 @@ function Weeks() {
         const sunday = addDays(monday, 6);
 
         const newweek: string[] = [];
-        setStartWeek(monday);
-        setEndWeek(sunday);
         for (let i = 0; i < 7; i++) {
             newweek.push(format(addDays(monday, i), 'yyyy-MM-dd'));
         }

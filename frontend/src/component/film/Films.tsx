@@ -1,15 +1,14 @@
 // import React from "react"
 import { useEffect, useState } from 'react';
-import '../../const';
-import '../../types/types';
+import '../../asset/const/const';
 import { useParams } from 'react-router-dom';
-import { FilmDBcall } from '../../const';
-import { DBCALL_URL } from '../../root';
-import { IMG_ROOT } from '../../root';
-import SelectShow from './SelectShow';
-import { FilmType } from '../../types/types';
-import CommentBox from './CommentBox';
-import { FetchDataGet } from '../../fetchDB';
+import { FilmDBcall } from '../../asset/DBcall/DBcall';
+import { DBCALL_URL } from '../../asset/DBcall/root';
+import { IMG_ROOT } from '../../asset/DBcall/root';
+import SelectShow from './selectshow/SelectShow';
+import { FilmType } from '../../asset/types/types';
+import CommentBox from './comment/CommentBox';
+import { FetchDataGet } from '../../asset/DBcall/fetchDB';
 import { useAppSelector } from '../../store/hook';
 
 function Film() {

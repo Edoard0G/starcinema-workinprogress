@@ -1,10 +1,9 @@
 import { startOfTomorrow, format } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { DBCALL_URL } from '../../root';
-import { FetchDataGet, FetchDataPost } from '../../fetchDB';
-import { FilmDBcall, ShowDBcall } from '../../const';
-import { FilmType } from '../../types/types';
-import { BlueButton } from '../../layout/layout';
+import { DBCALL_URL } from '../../asset/DBcall/root';
+import { FetchDataGet, FetchDataPost } from '../../asset/DBcall/fetchDB';
+import { FilmDBcall, ShowDBcall } from '../../asset/DBcall/DBcall';
+import { FilmType } from '../../asset/types/types';
 function AddShow() {
     const [isloading, setIsloading] = useState(true);
     const tomorrow = format(startOfTomorrow(), 'yyyy-MM-dd');
@@ -14,7 +13,7 @@ function AddShow() {
         time: string;
         room: number;
         duration?: string;
-    }>({ filmId: '0', day: tomorrow, time: '14:00', room: 0 });
+    }>({ filmId: '0', day: tomorrow, time: '14:00', room: 1 });
     const [filmlist, setFilmList] = useState<FilmType[]>([]);
 
     useEffect(() => {
@@ -28,13 +27,28 @@ function AddShow() {
     }, []);
 
     function NewShow() {
-        const film = filmlist.filter(
-            (element) => element.filmId.toString() === newshow.filmId
-        );
-        setNewShow({ ...newshow, duration: film[0].durata });
-        FetchDataPost(DBCALL_URL + ShowDBcall.NEW, { newshow }).then((res) => {
-            console.log(res);
-        });
+        if (
+            Number(newshow.filmId) > 0 &&
+            newshow.room > 0 &&
+            Number(newshow.time.split(':')[0]) > 14
+        ) {
+            const film = filmlist.filter(
+                (element) => element.filmId.toString() === newshow.filmId
+            );
+            setNewShow({ ...newshow, duration: film[0].durata });
+            const bodyshow = { ...newshow, duration: film[0].durata };
+            console.log(bodyshow);
+            FetchDataPost(DBCALL_URL + ShowDBcall.NEW, { bodyshow }).then(
+                (res) => {
+                    console.log(res.data);
+                    if (res.status == 201) {
+                        alert(res.data);
+                    }
+                }
+            );
+        } else {
+            alert('complete all info(time > 14:00)');
+        }
     }
 
     return (
